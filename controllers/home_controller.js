@@ -1,4 +1,9 @@
 module.exports.home = function(req,res){
-    return res.end('<h1>Hey Running Successfully!!</h1>')
+    console.log(req.cookies);
+    return res.render('home',{
+        title:'home',
+        content:'Home Page'
+    });
 }
+
 
