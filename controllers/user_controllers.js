@@ -1,5 +1,6 @@
-const { localsName } = require("ejs");
+// const { localsName } = require("ejs");
 const User = require("../model/user")
+
 
 module.exports.profile=(req,res)=>{
     return res.render('user_profile',{
@@ -47,7 +48,7 @@ module.exports.create=(req,res)=>{
             User.create(req.body,(err,user)=>{
                 if(err){
                     console.log('error in creating user in signUp')
-                    return
+                    return;
                 }
                 return res.redirect('/user/sign-in');
 
@@ -68,3 +69,5 @@ module.exports.destroySession=function(req,res){
     req.logout();
     return res.redirect('/');
 }
+
+
