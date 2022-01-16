@@ -1,7 +1,11 @@
+const { localsName } = require("ejs");
 const User = require("../model/user")
 
 module.exports.profile=(req,res)=>{
-    return res.end('<h1> Hey you are in User Profile page!!!!</h1>')
+    return res.render('user_profile',{
+        title:"profile",
+        user:req.user
+    });
 }
 
 
@@ -10,6 +14,9 @@ module.exports.contact=(req,res)=>{
 }
 
 module.exports.signIn=(req,res)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/user/profile');
+    }
     return res.render('user_signIn',{
         title:"Social|Sign-In"
     })
@@ -17,6 +24,9 @@ module.exports.signIn=(req,res)=>{
 
 
 module.exports.signUp=(req,res)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/user/profile');
+    }
     return res.render('user_signUp',{
         title:"Social|Sign-Up"
     })
@@ -50,5 +60,11 @@ module.exports.create=(req,res)=>{
 }
 
 module.exports.createSession=(req,res)=>{
+       return res.redirect('/');
+}
 
+
+module.exports.destroySession=function(req,res){
+    req.logout();
+    return res.redirect('/');
 }
