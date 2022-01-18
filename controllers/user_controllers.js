@@ -1,4 +1,4 @@
-// const { localsName } = require("ejs");
+const { localsName } = require("ejs");
 const User = require("../model/user")
 
 

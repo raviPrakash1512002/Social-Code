@@ -27,11 +27,21 @@
         <ul>
             <%for(post of posts){%>
                 <li>
-                    <%=post.content%>
+                    <p>
+                        <%=post.content%>
+                            <p>
+                                <%=post.user.name%>
+                            </p>
+                    </p>
+                    <div class="post-comment">
+                        
+                        <form action="/comment/create" method="POST">
+                            <input type="text" name="content" placeholder="Comments....">
+                            <input type="hidden" name="post" value="post._id">
+                            <input type="submit" value="Add Comment">
+                        </form>
+                    </div>
                 </li>
-                <span><%=post.user.name%></span>
-
-
             <%}%>
         </ul>
     </div>
