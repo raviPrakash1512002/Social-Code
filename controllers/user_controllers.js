@@ -9,11 +9,6 @@ module.exports.profile=(req,res)=>{
     });
 }
 
-
-module.exports.contact=(req,res)=>{
-    return res.end('<h1> Hey you are in User contact page!!!!</h1>')
-}
-
 module.exports.signIn=(req,res)=>{
     if(req.isAuthenticated()){
         return res.redirect('/user/profile');

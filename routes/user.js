@@ -5,7 +5,7 @@ const profileController=require('../controllers/user_controllers');
 
 
 router.get('/profile',passport.checkAuthentication,profileController.profile);
-router.get('/contact',profileController.contact);
+
 
 
 
