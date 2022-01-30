@@ -1,0 +1,32 @@
+<li id="post-<%= post._id%>">
+    <p>
+
+            <small>
+                <a class="delete-post-btn" href="/post/destroy/<%=post.id%>">X</a>
+            </small>
+            <%=post.content%>
+            <%=post.user.name%>
+        </p>
+    </p>
+    <div class="post-comment">
+
+
+        <form action="/comment/create" method="POST">
+            <input type="text" name="content" placeholder="Comments...." required>
+            <input type="hidden" name="post" value="<%=post._id%>">
+            <input type="submit" value="Add Comment">
+        </form>
+
+        <div id="post-comments-list">
+            <ul id="post-comments-<%= post._id %>">
+                <% for(comment of post.comments){ %>
+                   
+                     <%- include('_comment') -%>
+
+                <% } %>
+            </ul>
+
+        </div>
+
+    </div>
+</li>

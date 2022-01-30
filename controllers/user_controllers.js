@@ -1,12 +1,22 @@
-const { localsName } = require("ejs");
+const {localsName} = require("ejs");
 const User = require("../model/user")
 
 
+
+
+
+
+
 module.exports.profile=(req,res)=>{
+  User.findById(req.params.id,function(err,user){
     return res.render('user_profile',{
         title:"profile",
-        user:req.user
+        profile_user:user
     });
+  })
+
+
+  
 }
 
 module.exports.signIn=(req,res)=>{
@@ -56,12 +66,14 @@ module.exports.create=(req,res)=>{
 }
 
 module.exports.createSession=(req,res)=>{
+    req.flash('success','Logged in Successfully');
        return res.redirect('/');
 }
 
 
 module.exports.destroySession=function(req,res){
     req.logout();
+    req.flash('success','You have logged out!');
     return res.redirect('/');
 }
 

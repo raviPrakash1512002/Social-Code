@@ -12,6 +12,7 @@
 
 <body>
 
+
     <h1>
         <%= content%>
     </h1>
@@ -19,52 +20,40 @@
 
     <session id="feed-posts">
         <h4>Posts</h4>
+       <% if(locals.user) {%>
         <form action="/post/create" id="new-post-form" method="POST">
-            <textarea name="content" cols="30" rows="4" placeholder="Type here...."></textarea>
+            <textarea name="content" cols="30" rows="4" placeholder="Type here...." required></textarea>
             <input type="submit" value="Post">
         </form>
+
+
+
+        <% } %>
     </session>
     <div class="post-container">
         <ul>
             <%for(post of posts){%>
-                <li>
-                    <p>
-                        <%=post.content%>
-                            <p>
-                                <%=post.user.name%>
-                            </p>
-                    </p>
-                    <div class="post-comment">
 
 
-                        <form action="/comment/create" method="POST">
-                            <input type="text" name="content" placeholder="Comments....">
-                            <input type="hidden" name="post" value="<%=post._id%>">
-                            <input type="submit" value="Add Comment">
-                        </form>
-
-                        <div id="post-comments-list">
-                            <ul id="post-comments-<%= post._id %>">
-                                <% for(comment of post.comments){ %>
-                                    <li>
-                                        <p>
-                                            <%= comment.content %>
-                                            <br>
-                                            <span>
-                                                <%= comment.user.name %>
-                                            </span>
-                                        </p>
-                                    </li>
-                                <% } %>
-                            </ul>
-
-                        </div>
-
-                    </div>
-                </li>
-             <%}%>
+                <%- include('_post') -%>
+               
+            <%}%>
         </ul>
     </div>
+    <section id="user-friends">
+
+
+        <h4>friends</h4>
+
+        <% for(u of all_user) {%>
+                 <p>
+                    <a href="/user/profile/<%=u.id %>"><%= u.name%></a>
+                 </p>
+
+            <% } %>
+    </section>
+    <script src="/js/home_posts.js"></script>
+
 
 </body>
 

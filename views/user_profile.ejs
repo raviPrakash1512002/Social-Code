@@ -1,8 +1,22 @@
-<h1>Hii!!! you are visited <%=user.name %>'s profile page</h1>
-<ul>
-    <% if(locals.user){%>
-        <li><%=user.name%></li>
-        <li><a href="/user/sign-out">sign out</a></li>
-    <% }%>
-</ul>
+<link rel="stylesheet" href="/css/user_profile.css">
+
+<h1>Hii!!! you are visited <%=profile_user.name %>'s profile page</h1>
+<a href="/user/sign-out">sign out</a>
+
+<% if(user.id == profile_user.id) { %>
+    <!-- if user matches then show update form  -->
+       <form action="/user/update/<%= profile_user.id %>">
+           <input type="text" name="name" placeholder="your Name" value ="<%=profile_user.name%>" required>
+           <input type="text" name="email" placeholder="your Email" value ="<%=profile_user.email%>" required>
+        </form>
+
+<%}else{ %>
+        <!-- else show only the profie info -->
+    <ul>
+    
+            <li><%=profile_user.name %></li>
+            
+        
+    </ul>
+<% } %>
 
