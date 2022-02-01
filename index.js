@@ -8,6 +8,7 @@ const db=require('./config/mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local');
+const passportJWT= require('./config/passport-jwt');
 const MongoStore=require('connect-mongo');
 const expressLayouts=require('express-ejs-layouts');
 const flash= require('connect-flash');
@@ -30,6 +31,10 @@ app.use(express.urlencoded());
 app.use(cookieparser());
 
 app.use(express.static('./assets'));
+
+// make the upload path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'))
+
 app.use(expressLayouts);
 
 //extract style and scripts from sub pages into the layouts

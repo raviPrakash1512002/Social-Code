@@ -6,7 +6,7 @@ const profileController=require('../controllers/user_controllers');
 
 router.get('/profile/:id',passport.checkAuthentication,profileController.profile);
 
-
+router.post('/update/:id',passport.checkAuthentication,profileController.update);
 
 
 router.get('/sign-in',profileController.signIn);
