@@ -1,25 +1,50 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 
 <h1>Hii!!! you are visited <%=profile_user.name %>'s profile page</h1>
-<a href="/user/sign-out">sign out</a>
 
-<% if(user.id == profile_user.id) { %>
-    <!-- if user matches then show update form  -->
-       <form action="/user/update/<%= profile_user.id %>" enctype="multipart/form-data"method="POST">
-           <input type="text" name="name" placeholder="your Name" value ="<%=profile_user.name%>" required>
-           <input type="text" name="email" placeholder="your Email" value ="<%=profile_user.email%>" required>
-           <input type="file" name="avatar" placeholder="Profile Picture">
-           <input type="submit" value="Update">
-        </form>
+<% if(profile_user.avatar) { %>
+    <img src="<%=user.avatar %>" alt="<%= user.name %>" width="100px" height="100px">
+    <% } %>
+        <% if(user.id==profile_user.id) { %>
+            <!-- if user matches then show update form  -->
+            <form action="/user/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
+                <input type="text" name="name" placeholder="your Name" value="<%=profile_user.name%>" required>
+                <input type="text" name="email" placeholder="your Email" value="<%=profile_user.email%>" required>
+                <input type="file" name="avatar" placeholder="Profile Picture">
+                <input type="submit" value="Update">
+            </form>
 
-<%}else{ %>
-        <!-- else show only the profie info -->
-    <ul>
-    
-            <li><%=profile_user.name %></li>
-            
-        
-    </ul>
-<% } %>
+            <%}else{ %>
+                <!-- else show only the profie info -->
+                <p><b>Name</b>: <%= profile_user.name%>
+                </p>
+                <p><b>Email</b>: <%= profile_user.email%>
+                </p>
+                <% } %>
 
-<img src="<%=user.avatar %>" alt="<%= user.name %>" width="300px" height="300px">
+
+
+
+                    <div class="btn-grp">
+                        <% let isFriend=false %>
+                        <% for(let friend of locals.populated_user.friend){ %>
+
+                            <% if(friend.to_user==profile_user.id || friend.from_user==profile_user.id){ %>
+                                <% isFriend=true %>
+                            <% } %>
+                        <% } %>
+                        <% if(isFriend){%>
+                            <button class="btn save-btn">
+                                <a  class="toggle-friend-btn" href="/friend/add-friend/?id=<%= profile_user.id %>">
+                                    Remove Friend
+                                </a>
+                            </button>
+                        <% }else{%>
+                             <button class="btn save-btn">
+                                 <a  class="toggle-friend-btn" href="/friend/add-friend/?id=<%= profile_user.id %>">
+                                    Add Friend
+                                </a>
+                            </button>
+                       <% } %>
+                    </div>
+                    <script src="/js/toggle_friend.js"></script>

@@ -1,1 +1,16 @@
-<footer>Page footer</footer>
+<footer>
+    <div id="left">
+        <div>
+            <p>© Ravi Prakash. All Rights Reserved</p>
+        </div>
+        <div>
+            <a href="/">Home</a>
+            <%if(locals.user) { %>
+                <a href="/user/profile/<%= user.id %>">Profile</a>
+            <% } else { %>
+                <a href="/user/sign-in">Sign In</a>
+            <% } %>
+        </div>
+    </div>
+    <div id="right"></div>
+</footer>

@@ -1,5 +1,6 @@
 const { localsName } = require("ejs");
 const User = require("../model/user")
+const Friendships = require("../model/friendship");
 const fs = require('fs');
 const path = require('path');
 
@@ -10,13 +11,36 @@ const path = require('path');
 
 
 
-module.exports.profile = (req, res) => {
-    User.findById(req.params.id, function (err, user) {
-        return res.render('user_profile', {
-            title: "profile",
-            profile_user: user
+module.exports.profile = async (req, res) => {
+    try {
+        let user = await User.findById({ _id: req.params.id });
+
+
+
+        let friendship1, friendship2
+
+        friendship1 = await Friendships.findOne({
+            from_user: req.user,
+            to_user: req.params.id,
         });
-    })
+
+        friendship2 = await Friendships.findOne({
+            from_user: req.params.id,
+            to_user: req.user,
+        });
+
+
+        let populated_user = await User.findById(req.user).populate('friend');
+
+
+        return res.render('user_profile', {
+            title: "Socail | profile",
+            profile_user: user, populated_user
+        });
+    }catch (err) {
+        console.log("Error", err);
+        return;
+    }
 
 
 
@@ -118,7 +142,9 @@ module.exports.create = (req, res) => {
 }
 
 module.exports.createSession = (req, res) => {
+
     req.flash('success', 'Logged in Successfully');
+
     return res.redirect('/');
 }
 

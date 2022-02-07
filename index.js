@@ -9,11 +9,17 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local');
 const passportJWT= require('./config/passport-jwt');
+const passportGoogle= require('./config/passport-google-oauth');
 const MongoStore=require('connect-mongo');
 const expressLayouts=require('express-ejs-layouts');
 const flash= require('connect-flash');
 const customMware=require('./config/middleware');
 
+//setup the chat server to be used with sockets.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listimg on port 5000');
 // app.use(scssMiddleware({
 //       src:'/asset/scss',
 //       dest:'/asset/css',
@@ -25,8 +31,8 @@ const customMware=require('./config/middleware');
 
 
 //reading through post request
-app.use(express.urlencoded());
 
+app.use(express.urlencoded());
 
 app.use(cookieparser());
 
