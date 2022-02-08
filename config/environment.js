@@ -26,8 +26,8 @@ const development = {
     
         }
     },
-    google_client_iD: "348955448407-iln18lu046digmkc49dbq9h64dmpqivt.apps.googleusercontent.com",
-    google_client_Secret: "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",
+    google_client_iD: process.env.SOCIAL_GOOGLE_CLIENT_ID,
+    google_client_Secret: process.env.SOCIAL_GOOGLE_CLIENT_SECRET,
     google_callback_URL: "http://localhost:8000/user/auth/google/callback",
     jwt_secret:'social',
     morgan:{
