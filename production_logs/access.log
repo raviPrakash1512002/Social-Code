@@ -426,4 +426,3 @@
 [0mGET /user/sign-out [36m302[0m 18.144 ms - 46[0m
 [0mGET / [32m200[0m 81.345 ms - 4956[0m
 [0mGET /user/sign-in [32m200[0m 8.364 ms - 2028[0m
-[0mGET /user/auth/google/callback?code=4%2F0AX4XfWi7ksftNGhw5uiF_SWWt-AJk8ggU1W9_ZhYj1JUeRdjnyBaAYTg93JcEWRjCU2Edw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=2&prompt=consent [31m500[0m 577.035 ms - 1242[0m
