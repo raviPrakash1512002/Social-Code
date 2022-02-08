@@ -1,6 +1,10 @@
 const express=require('express');
+const env = require('./config/environment');
+const logger = require('morgan');
+
 const cookieparser=require('cookie-parser');
 const app=express();
+require('./config/view-helpers')(app);
 const port=8000;
 
 const db=require('./config/mongoose');
@@ -11,6 +15,7 @@ const passportLocal=require('./config/passport-local');
 const passportJWT= require('./config/passport-jwt');
 const passportGoogle= require('./config/passport-google-oauth');
 const MongoStore=require('connect-mongo');
+
 const expressLayouts=require('express-ejs-layouts');
 const flash= require('connect-flash');
 const customMware=require('./config/middleware');
@@ -27,19 +32,22 @@ console.log('chat server is listimg on port 5000');
 //       outputStyle:'extended',
 //       prefix:'/css'
 // }));
+const path = require('path');
 
 
 
 //reading through post request
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 
 app.use(cookieparser());
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 // make the upload path available to the browser
 app.use('/uploads',express.static(__dirname + '/uploads'))
+
+app.use(logger(env.morgan.mode,env.morgan.options));
 
 app.use(expressLayouts);
 
@@ -58,7 +66,7 @@ app.set('views','./views');
 //mongo store use to store the session cookie in db
 app.use(session({
     name:'social',
-    secret:'blahsomething',
+    secret:env.session_cookie_key,
     saveUninitialized:false,
     resave:false,
     cookie:{
