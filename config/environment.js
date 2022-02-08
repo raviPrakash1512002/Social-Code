@@ -21,8 +21,8 @@ const development = {
         port:'587',
         secure:false,
         auth:{
-            user:'socielappbyraviprakash@gmail.com',
-            pass:'Ravi1512002@'
+            user:process.env.SOCIAL_GMAIL_USERNAME,
+            pass:process.env.SOCIAL_GMAIL_PASSWORD
     
         }
     },
@@ -65,4 +65,4 @@ const production = {
     }
 }
 
-module.exports=eval(process.env.SOCIAL_ENVIRONMENT)==undefined?development:eval(process.env.SOCIAL_ENVIRONMENT);
+module.exports=eval(process.env.NODE_ENV)==undefined?development:eval(process.env.SOCIAL_ENVIRONMENT);
